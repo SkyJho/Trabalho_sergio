@@ -8,7 +8,7 @@ namespace Trabalho_Final
 {
     public class Professor : Pessoa
     {
-        public Professor(int id, string nome, string email) : base(id, nome, email)
+        public Professor(int id, string nome, string email, string telefone, string endereco) : base(id, nome, email, telefone, endereco)
         {
         }
 

@@ -9,7 +9,7 @@ namespace Trabalho_Final
     public class Aluno : Pessoa
     {
 
-        public Aluno(int id, string nome, string email) : base(id, nome, email)
+        public Aluno(int id, string nome, string email, string telefone, string endereco) : base(id, nome, email, telefone, endereco)
         {
         }
 

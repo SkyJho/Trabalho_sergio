@@ -98,7 +98,7 @@ Opção: ");
             novo.Autor = Console.ReadLine();
             Console.WriteLine("Digite o ano do livro: ");
             novo.Ano = int.Parse(Console.ReadLine());
-            Console.WriteLine("Disponibilidade: ");
+            LivroDAO.cadastrarLivro(novo);
         }
 
         public static void listarLivro()

@@ -19,7 +19,7 @@ namespace Trabalho_Final
             cmd.CommandText = "SELECT * FROM livros";
             cmd.Connection = cn;
             resultado = cmd.ExecuteReader();
-            Console.WriteLine("Id\tTitulo\tAutor\tAno\tDisponivel");
+            Console.WriteLine("Id\tTitulo\tAutor\tAno\tDisponivel\n");
             while (resultado.Read())
             {
                 Livro livro = new Livro();

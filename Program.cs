@@ -16,10 +16,11 @@ namespace Trabalho_Final
 
         static void Main(string[] args)
         {
-            
+
 
             bool x = true;
-            while (x) {
+            while (x)
+            {
                 Console.WriteLine(@"===== SISTEMA DE BIBLIOTECA ===== 
 1 - Cadastrar usuário 
 2 - Listar usuários 
@@ -38,7 +39,7 @@ namespace Trabalho_Final
 0 - Sair 
 Opção: ");
                 int opcao = int.Parse(Console.ReadLine());
-                if (opcao == 0) 
+                if (opcao == 0)
                 {
                     x = false;
                 }
@@ -56,19 +57,16 @@ Opção: ");
                     case 4:
                         Console.WriteLine("Excluir usuário");
                         break;
-                    case 5: cadastrarLivro(); break;
+                    case 5: cadastrarLivro();   break;
 
-                    case 6: listarLivro(); break;
+                    case 6: listarLivro();      break;
 
-                    case 7:
-                        Console.WriteLine("Buscar livro");
-                        break;
-                    case 8:
-                        Console.WriteLine("Alterar livro");
-                        break;
-                    case 9:
-                        Console.WriteLine("Excluir livro");
-                        break;
+                    case 7: buscarLivro();      break;
+
+                    case 8: alterarLivro();     break;
+
+                    case 9: excluirLivro();     break;
+
                     case 10:
                         Console.WriteLine("Realizar empréstimo");
                         break;
@@ -97,13 +95,76 @@ Opção: ");
             Console.WriteLine("Digite o autor do livro: ");
             novo.Autor = Console.ReadLine();
             Console.WriteLine("Digite o ano do livro: ");
-            novo.Ano = int.Parse(Console.ReadLine());
+            novo.Ano = 0;
+            bool valido = false;
+
+            while (!valido)
+            {
+                try
+                {
+                    novo.Ano = int.Parse(Console.ReadLine());
+                    valido = true;
+                }
+                catch
+                {
+                    Console.WriteLine("Ano inválido. Digite novamente: ");
+                }
+            }
+
+            novo.Disponivel = true;
             LivroDAO.cadastrarLivro(novo);
         }
 
         public static void listarLivro()
         {
             LivroDAO.listarLivros();
+        }
+
+        public static void buscarLivro()
+        {
+            Console.WriteLine("Digite o título do livro: ");
+            string titulo = Console.ReadLine();
+            LivroDAO.buscarLivro(titulo);
+        }
+
+        public static void alterarLivro()
+        {
+            Console.WriteLine("Digite o ID do livro que deseja alterar: ");
+            int Id = 0;
+            bool valido = false;
+            while (!valido)
+            {
+                try
+                {
+                    Id = int.Parse(Console.ReadLine());
+                    valido = true;
+                }
+                catch
+                {
+                    Console.WriteLine("ID inválido. Digite novamente: ");
+                }
+            }
+            LivroDAO.alterarLivro(Id);
+        }
+
+        public static void excluirLivro()
+        {
+            Console.WriteLine("Digite o ID do livro que deseja excluir: ");
+            int id = 0;
+            bool valido = false;
+            while (!valido)
+            {
+                try
+                {
+                    id = int.Parse(Console.ReadLine());
+                    valido = true;
+                }
+                catch
+                {
+                    Console.WriteLine("ID inválido. Digite novamente: ");
+                }
+            }
+            LivroDAO.excluirLivro(id);
         }
     }
 }

@@ -58,18 +58,14 @@ Opção: ");
                 }
                 switch (opcao)
                 {
-                    case 1:
-                        Console.WriteLine("Cadastrar usuário");
-                        break;
-                    case 2:
-                        Console.WriteLine("Listar usuarios");
-                        break;
-                    case 3:
-                        Console.WriteLine("Alterar usuário");
-                        break;
-                    case 4:
-                        Console.WriteLine("Excluir usuário");
-                        break;
+                    case 1: cadastrarUsuario(); break;
+
+                    case 2: listarUsuario();    break;
+
+                    case 3: alterarUsuario();   break;
+
+                    case 4: excluirUsuario();   break;
+
                     case 5: cadastrarLivro();   break;
 
                     case 6: listarLivro();      break;
@@ -100,6 +96,8 @@ Opção: ");
 
             }
         }
+
+        #region Livro
         public static void cadastrarLivro()
         {
             Livro novo = new Livro();
@@ -179,5 +177,93 @@ Opção: ");
             }
             LivroDAO.excluirLivro(id);
         }
+        #endregion
+
+        #region Usuario
+        public static void cadastrarUsuario()
+        {
+            Console.WriteLine("Digite o nome do usuário: ");
+            string nome = Console.ReadLine();
+            Console.WriteLine("Digite o telefone do usuario: ");
+            string telefone = Console.ReadLine();
+            Console.WriteLine("Digite o endereço do usuario: ");
+            string endereco = Console.ReadLine();
+            Console.WriteLine("Digite o email do usuario: ");
+            string email = Console.ReadLine();
+            int opcao = 0;
+            bool valido = false;
+            Pessoa novo = null;
+            while (!valido)
+            {
+                try
+                {
+                    Console.WriteLine("Digite o tipo de usuário: 1 - Aluno, 2 - Professor");
+                    opcao = int.Parse(Console.ReadLine());
+                    valido = true;
+                    if (opcao == 1)
+                    {
+                        novo = new Aluno(0, nome, email, telefone, endereco);
+                    }
+                    else
+                    {
+                        novo = new Professor(0, nome, email, telefone, endereco);
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Opção inválida. Digite novamente: ");
+                }
+            }
+            UsuarioDAO.cadastrarUsuario(novo);
+        }
+
+        public static void listarUsuario()
+        {
+            UsuarioDAO.listarUsuarios();
+        }
+
+        public static void alterarUsuario()
+        {
+            Console.WriteLine("Digite o ID do usuario que deseja alterar: ");
+            int Id = 0;
+            bool valido = false;
+            while (!valido)
+            {
+                try
+                {
+                    Id = int.Parse(Console.ReadLine());
+                    valido = true;
+
+                }
+                catch
+                {
+                    Console.WriteLine("ID inválido. Digite novamente: ");
+                }
+            }
+            UsuarioDAO.alterarUsuario(Id);
+        }
+
+        public static void excluirUsuario()
+        {
+            Console.WriteLine("Digite o ID do usuario que deseja excluir: ");
+            int Id = 0;
+            bool valido = false;
+            while (!valido)
+            {
+                try
+                {
+                    Id = int.Parse(Console.ReadLine());
+                    valido = true;
+                }
+                catch
+                {
+                    Console.WriteLine("ID inválido. Digite novamente: ");
+                }
+            }
+            UsuarioDAO.excluirUsuario(Id);
+        }
+
+        #endregion
+
     }
 }

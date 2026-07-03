@@ -38,7 +38,20 @@ namespace Trabalho_Final
 14 - Gerar relatório em arquivo texto 
 0 - Sair 
 Opção: ");
-                int opcao = int.Parse(Console.ReadLine());
+                int opcao = 0;
+                bool valido = false;
+                while (!valido)
+                {
+                    try
+                    {
+                        opcao = int.Parse(Console.ReadLine());
+                        valido = true;
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Opção inválida. Digite novamente: ");
+                    }
+                }
                 if (opcao == 0)
                 {
                     x = false;
@@ -122,9 +135,9 @@ Opção: ");
 
         public static void buscarLivro()
         {
-            Console.WriteLine("Digite o título do livro: ");
-            string titulo = Console.ReadLine();
-            LivroDAO.buscarLivro(titulo);
+            Console.WriteLine("Digite o título ou autor do livro: ");
+            string tituloOuAutor = Console.ReadLine();
+            LivroDAO.buscarLivro(tituloOuAutor, tituloOuAutor);
         }
 
         public static void alterarLivro()

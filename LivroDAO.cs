@@ -71,7 +71,7 @@ namespace Trabalho_Final
             cn.Open();
             MySqlCommand cmd = new MySqlCommand();
             cmd.Connection = cn;
-            cmd.CommandText = $"SELECT * FROM livros WHERE Id = {id}";
+            cmd.CommandText = $"SELECT * FROM livros WHERE id_livro={id}";
             MySqlDataReader resultado = cmd.ExecuteReader();
             if (resultado.HasRows)
             {
@@ -91,12 +91,22 @@ namespace Trabalho_Final
                 if (!string.IsNullOrWhiteSpace(autor)) livro.Autor = autor;
 
                 Console.WriteLine("Digite o ano correto do livro: ");
-                int ano = int.Parse(Console.ReadLine());
-                if (!int.TryParse(Console.ReadLine(), out ano)) livro.Ano = ano;
+                bool valido = false;
+                while (!valido)
+                {
+                    try
+                    {
+                        livro.Ano = int.Parse(Console.ReadLine());
+                        valido = true;
+                    }catch
+                    {
+                        Console.WriteLine("Ano inválido. Digite um número inteiro.");
+                    }
+                }
 
                 MySqlCommand cmdUpdate = new MySqlCommand();
                 cmdUpdate.Connection = cn;
-                cmdUpdate.CommandText = $"UPDATE livros SET Titulo = '{livro.Titulo}', Autor = '{livro.Autor}', Ano = {livro.Ano} WHERE Id = {id}";
+                cmdUpdate.CommandText = $"UPDATE livros SET Titulo = '{livro.Titulo}', Autor = '{livro.Autor}', Ano = {livro.Ano} WHERE id_livro = {id}";
                 cmdUpdate.ExecuteNonQuery();
                 Console.WriteLine("Livro alterado!\n");
             }
@@ -115,7 +125,7 @@ namespace Trabalho_Final
             MySqlCommand cmd = new MySqlCommand();
             MySqlDataReader resultado;
             cmd.Connection = cn;
-            cmd.CommandText = $"SELECT * FROM livros WHERE id={id}";
+            cmd.CommandText = $"SELECT * FROM livros WHERE id_livro={id}";
             resultado = cmd.ExecuteReader();
             if (resultado.HasRows)
             {
@@ -130,7 +140,7 @@ namespace Trabalho_Final
                 {
                     MySqlCommand cmdDelete = new MySqlCommand();
                     cmdDelete.Connection = cn;
-                    cmdDelete.CommandText = $"DELETE FROM livros WHERE id={id}";
+                    cmdDelete.CommandText = $"DELETE FROM livros WHERE id_livro={id}";
                     cmdDelete.ExecuteNonQuery();
                     Console.WriteLine("Livro excluído com sucesso!");
                 }

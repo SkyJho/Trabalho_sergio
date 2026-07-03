@@ -41,21 +41,23 @@ namespace Trabalho_Final
             cn.Close();
         }
 
-        public static void buscarLivro(string tituloProcurado)
+        public static void buscarLivro(string tituloProcurado, string autorProcurado)
         {
             MySqlConnection cn = Conexao.fazerConexao();
             cn.Open();
             MySqlCommand cmd = new MySqlCommand();
             MySqlDataReader resultado;
-            cmd.CommandText = $"SELECT * FROM livros WHERE Titulo LIKE '%{tituloProcurado}%'";
+            cmd.CommandText = $"SELECT * FROM livros WHERE Titulo LIKE '%{tituloProcurado}%' OR Autor LIKE '%{autorProcurado}%'";
             cmd.Connection = cn;
             resultado = cmd.ExecuteReader();
             if (resultado.HasRows)
             {
-                resultado.Read();
-                Livro livro = new Livro();
-                livro.preencheLivro(resultado);
-                livro.mostrar();
+                while (resultado.Read())
+                {
+                    Livro livro = new Livro();
+                    livro.preencheLivro(resultado);
+                    livro.mostrar();
+                }
             }
             else
             {
